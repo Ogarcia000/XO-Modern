@@ -2,9 +2,12 @@
 
 Un juego moderno de Tic Tac Toe (3 en raya) construido con **Phaser 3**, con diseño moderno, animaciones fluidas y características avanzadas.
 
+## 🎮 [Juega Ahora](https://modernxo.ogptechcode.com/)
+
 ![XO Modern](https://img.shields.io/badge/version-1.0.0-blue.svg)
 ![Phaser](https://img.shields.io/badge/Phaser-3.70.0-green.svg)
 ![License](https://img.shields.io/badge/license-MIT-orange.svg)
+[![Live Demo](https://img.shields.io/badge/demo-live-success.svg)](https://modernxo.ogptechcode.com/)
 
 ## ✨ Características
 
