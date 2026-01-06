@@ -1058,20 +1058,24 @@ export default class UIHelper {
         const updateInputPositions = () => {
             const canvas = scene.sys.game.canvas;
             const rect = canvas.getBoundingClientRect();
-            const scaleX = canvas.width / rect.width;
-            const scaleY = canvas.height / rect.height;
+            const scaleX = rect.width / canvas.width;
+            const scaleY = rect.height / canvas.height;
 
-            // Player X input position
-            const xInputScreenX = rect.left + (width / 2 - 70) / scaleX;
-            const xInputScreenY = rect.top + (height / 2 - 95) / scaleY;
-            playerXInput.style.left = `${xInputScreenX}px`;
-            playerXInput.style.top = `${xInputScreenY}px`;
+            // Convert panel coordinates to screen coordinates
+            // Panel is centered at (width/2, height/2)
+            // Labels are at -160 from center, inputs should be at +10 from labels (170 from left edge)
 
-            // Player O input position
-            const oInputScreenX = rect.left + (width / 2 - 70) / scaleX;
-            const oInputScreenY = rect.top + (height / 2 - 50) / scaleY;
-            playerOInput.style.left = `${oInputScreenX}px`;
-            playerOInput.style.top = `${oInputScreenY}px`;
+            // Player X input position (Y: -125, X: +10 from label at -160)
+            const xInputGameX = width / 2 + 10;  // Center + 10px right
+            const xInputGameY = height / 2 - 125;  // Center - 125px up
+            playerXInput.style.left = `${rect.left + xInputGameX * scaleX}px`;
+            playerXInput.style.top = `${rect.top + xInputGameY * scaleY}px`;
+
+            // Player O input position (Y: -75, X: +10 from label)
+            const oInputGameX = width / 2 + 10;
+            const oInputGameY = height / 2 - 75;
+            playerOInput.style.left = `${rect.left + oInputGameX * scaleX}px`;
+            playerOInput.style.top = `${rect.top + oInputGameY * scaleY}px`;
         };
 
         // Panel open/close methods
