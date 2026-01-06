@@ -52,6 +52,9 @@ export default class UIHelper {
         const finalWidth = Math.max(width, TOUCH_TARGETS.minimum);
         const finalHeight = Math.max(height, TOUCH_TARGETS.minimum);
 
+        // Add padding to hit area for easier clicking
+        const hitPadding = 10;
+
         const container = scene.add.container(x, y);
 
         // Glow effect (behind button)
@@ -79,56 +82,31 @@ export default class UIHelper {
         }).setOrigin(0.5);
 
         container.add([glow, button, ripple, buttonText]);
-        container.setSize(finalWidth, finalHeight);
+
+        // Larger hit area with padding
+        container.setSize(finalWidth + hitPadding * 2, finalHeight + hitPadding * 2);
         container.setInteractive(
-            new Phaser.Geom.Rectangle(-finalWidth / 2, -finalHeight / 2, finalWidth, finalHeight),
+            new Phaser.Geom.Rectangle(
+                -finalWidth / 2 - hitPadding,
+                -finalHeight / 2 - hitPadding,
+                finalWidth + hitPadding * 2,
+                finalHeight + hitPadding * 2
+            ),
             Phaser.Geom.Rectangle.Contains
         );
 
-        // Hover effects
-        container.on('pointerover', () => {
-            scene.tweens.add({
-                targets: container,
-                scaleX: 1.05,
-                scaleY: 1.05,
-                duration: 200,
-                ease: 'Back.easeOut'
-            });
-            scene.tweens.add({
-                targets: glow,
-                alpha: 1,
-                duration: 200
-            });
-            button.clear();
-            button.fillStyle(hoverColor, 1);
-            button.fillRoundedRect(-finalWidth / 2, -finalHeight / 2, finalWidth, finalHeight, finalHeight / 2);
-        });
-
-        container.on('pointerout', () => {
-            scene.tweens.add({
-                targets: container,
-                scaleX: 1,
-                scaleY: 1,
-                duration: 200,
-                ease: 'Back.easeIn'
-            });
-            scene.tweens.add({
-                targets: glow,
-                alpha: 0,
-                duration: 200
-            });
-            button.clear();
-            button.fillStyle(backgroundColor, 1);
-            button.fillRoundedRect(-finalWidth / 2, -finalHeight / 2, finalWidth, finalHeight, finalHeight / 2);
-        });
-
-        // Click effects with ripple
+        // Simplified: Use pointerdown instead of pointerup for immediate response
         container.on('pointerdown', () => {
+            // Visual feedback
             scene.tweens.add({
                 targets: container,
                 scaleX: 0.95,
                 scaleY: 0.95,
-                duration: 100
+                duration: 100,
+                yoyo: true,
+                onComplete: () => {
+                    if (callback) callback();
+                }
             });
 
             // Ripple effect
@@ -147,16 +125,19 @@ export default class UIHelper {
             });
         });
 
-        container.on('pointerup', () => {
-            scene.tweens.add({
-                targets: container,
-                scaleX: 1.05,
-                scaleY: 1.05,
-                duration: 100,
-                onComplete: () => {
-                    if (callback) callback();
-                }
-            });
+        // Keep simple hover for visual feedback
+        container.on('pointerover', () => {
+            glow.setAlpha(0.5);
+            button.clear();
+            button.fillStyle(hoverColor, 1);
+            button.fillRoundedRect(-finalWidth / 2, -finalHeight / 2, finalWidth, finalHeight, finalHeight / 2);
+        });
+
+        container.on('pointerout', () => {
+            glow.setAlpha(0);
+            button.clear();
+            button.fillStyle(backgroundColor, 1);
+            button.fillRoundedRect(-finalWidth / 2, -finalHeight / 2, finalWidth, finalHeight, finalHeight / 2);
         });
 
         return { container, button, text: buttonText, glow, ripple };
