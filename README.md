@@ -192,11 +192,11 @@ Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) par
 
 ## 📸 Screenshots
 
-### Pantalla Principal
-![Partida de XO Modern mostrando tarjetas de jugadores](screenshots/game-menu.png)
-
 ### Juego en Acción
-![Menú principal del juego XO Modern](screenshots/game-playing.png)
+![Partida de XO Modern mostrando tarjetas de jugadores](screenshots/game-playing.png)
+
+### Pantalla Principal
+![Menú principal del juego XO Modern](screenshots/game-menu.png)
 
 
 ---
