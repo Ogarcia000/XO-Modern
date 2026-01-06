@@ -13,16 +13,22 @@ const config = {
     scale: {
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH,
-        width: 800,
-        height: 600,
+        width: 1080,
+        height: 1920,
         min: {
-            width: 320,
-            height: 240
+            width: 360,
+            height: 640
         },
         max: {
-            width: 1920,
-            height: 1080
+            width: 1080,
+            height: 1920
         }
+    },
+    input: {
+        touch: true,
+        mouse: true,
+        activePointers: 3,
+        smoothFactor: 0
     },
     physics: {
         default: 'arcade',
