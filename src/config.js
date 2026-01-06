@@ -11,17 +11,17 @@ const config = {
     parent: 'game-container',
     backgroundColor: '#1a1a2e',
     scale: {
-        mode: Phaser.Scale.FIT,
+        mode: Phaser.Scale.RESIZE,
         autoCenter: Phaser.Scale.CENTER_BOTH,
-        width: 1080,
-        height: 1920,
+        width: window.innerWidth,
+        height: window.innerHeight,
         min: {
-            width: 360,
-            height: 640
+            width: 320,
+            height: 480
         },
         max: {
-            width: 1080,
-            height: 1920
+            width: 2560,
+            height: 1440
         }
     },
     input: {

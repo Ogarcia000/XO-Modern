@@ -859,26 +859,31 @@ export default class UIHelper {
         overlay.setOrigin(0.5);
         overlay.setInteractive();
 
-        // Panel background (larger to accommodate name inputs)
-        const panelWidth = 360;
-        const panelHeight = 420;
+        // Panel background - responsive sizing
+        const panelWidth = Math.min(400, width * 0.9);  // 90% of width, max 400px
+        const panelHeight = Math.min(500, height * 0.8); // 80% of height, max 500px
         const panelBg = scene.add.graphics();
         panelBg.fillStyle(0x1a1a2e, 0.98);
         panelBg.lineStyle(3, MODERN_COLORS.secondary, 0.8);
         panelBg.fillRoundedRect(-panelWidth / 2, -panelHeight / 2, panelWidth, panelHeight, 16);
         panelBg.strokeRoundedRect(-panelWidth / 2, -panelHeight / 2, panelWidth, panelHeight, 16);
 
+        // Calculate responsive positions
+        const titleY = -panelHeight / 2 + 30;
+        const sectionSpacing = 60;
+
+
         // Title
-        const panelTitle = scene.add.text(0, -180, 'CONFIGURACIÓN', {
-            fontSize: '26px',
+        const panelTitle = scene.add.text(0, titleY, 'CONFIGURACIÓN', {
+            fontSize: '24px',
             fontFamily: 'Roboto',
             fontStyle: 'bold',
             color: '#ffffff'
         }).setOrigin(0.5);
 
         // Player names section
-        const namesLabel = scene.add.text(0, -130, 'Nombres de Jugadores', {
-            fontSize: '16px',
+        const namesLabel = scene.add.text(0, titleY + 40, 'Nombres de Jugadores', {
+            fontSize: '14px',
             fontFamily: 'Roboto',
             fontStyle: '600',
             color: '#c8c8dc'
@@ -888,8 +893,10 @@ export default class UIHelper {
         panel.domInputs = [];
 
         // Player X name input
-        const playerXLabel = scene.add.text(-150, -95, 'Jugador X:', {
-            fontSize: '14px',
+        const labelX = panelWidth * 0.4;
+        const inputY1 = titleY + 80;
+        const playerXLabel = scene.add.text(-labelX, inputY1, 'Jugador X:', {
+            fontSize: '13px',
             fontFamily: 'Roboto',
             color: '#ff6b6b'
         }).setOrigin(0, 0.5);
@@ -901,9 +908,9 @@ export default class UIHelper {
         playerXInput.maxLength = 15;
         playerXInput.style.cssText = `
             position: absolute;
-            width: 200px;
-            height: 32px;
-            font-size: 14px;
+            width: ${panelWidth * 0.55}px;
+            height: 36px;
+            font-size: 13px;
             font-family: Roboto, sans-serif;
             padding: 4px 8px;
             border: 2px solid #ff6b6b;
@@ -933,8 +940,9 @@ export default class UIHelper {
         panel.domInputs.push(playerXInput);
 
         // Player O name input
-        const playerOLabel = scene.add.text(-150, -50, 'Jugador O:', {
-            fontSize: '14px',
+        const inputY2 = titleY + 125;
+        const playerOLabel = scene.add.text(-labelX, inputY2, 'Jugador O:', {
+            fontSize: '13px',
             fontFamily: 'Roboto',
             color: '#4ecdc4'
         }).setOrigin(0, 0.5);
@@ -946,9 +954,9 @@ export default class UIHelper {
         playerOInput.maxLength = 15;
         playerOInput.style.cssText = `
             position: absolute;
-            width: 200px;
-            height: 32px;
-            font-size: 14px;
+            width: ${panelWidth * 0.55}px;
+            height: 36px;
+            font-size: 13px;
             font-family: Roboto, sans-serif;
             padding: 4px 8px;
             border: 2px solid #4ecdc4;
@@ -978,64 +986,69 @@ export default class UIHelper {
         panel.domInputs.push(playerOInput);
 
         // Note about player names
-        const nameNote = scene.add.text(0, -10, '(Solo para modo VS Humano)', {
-            fontSize: '11px',
+        const noteY = titleY + 165;
+        const nameNote = scene.add.text(0, noteY, '(Solo para modo VS Humano)', {
+            fontSize: '10px',
             fontFamily: 'Roboto',
             fontStyle: 'italic',
             color: '#888888'
         }).setOrigin(0.5);
 
         // Dark mode toggle button
+        const btnWidth = Math.min(260, panelWidth * 0.8);
+        const btnY1 = noteY + 40;
         const darkModeBtn = UIHelper.createModernButton(
             scene,
             0,
-            45,
+            btnY1,
             gameState.darkMode ? '☀️ Modo Luz' : '🌙 Modo Oscuro',
             () => {
                 gameState.darkMode = !gameState.darkMode;
                 scene.scene.restart();
             },
             {
-                width: 260,
-                height: 50,
-                fontSize: '16px',
+                width: btnWidth,
+                height: 48,
+                fontSize: '15px',
                 backgroundColor: 0x2C2C3E,
                 hoverColor: 0x3C3C4E
             }
         );
 
         // Sound toggle button
+        const btnY2 = btnY1 + 60;
         const soundBtn = UIHelper.createModernButton(
             scene,
             0,
-            110,
+            btnY2,
             gameState.soundEnabled ? '🔊 Sonido On' : '🔇 Sonido Off',
             () => {
                 gameState.soundEnabled = !gameState.soundEnabled;
                 soundBtn.text.setText(gameState.soundEnabled ? '🔊 Sonido On' : '🔇 Sonido Off');
             },
             {
-                width: 260,
-                height: 50,
-                fontSize: '16px',
+                width: btnWidth,
+                height: 48,
+                fontSize: '15px',
                 backgroundColor: 0x2C2C3E,
                 hoverColor: 0x3C3C4E
             }
         );
 
         // Close button
+        const btnY3 = btnY2 + 60;
         const closeBtn = UIHelper.createModernButton(
             scene,
             0,
-            175,
+            btnY3,
             '✕ Cerrar',
             () => {
                 panel.close();
             },
             {
-                width: 260,
-                height: 50,
-                fontSize: '18px',
+                width: btnWidth,
+                height: 48,
+                fontSize: '16px',
                 backgroundColor: 0xd63031,
                 hoverColor: 0xe74c3c
             }
