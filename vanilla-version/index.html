@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>XO Modern - Tic Tac Toe</title>
+
+    <!-- Fuentes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <div id="app">
+        <!-- Vista: Menu Principal -->
+        <div id="view-menu" class="view active">
+            <div class="container">
+                <h1 class="title glow">XO MODERN</h1>
+                <p class="subtitle">Tic Tac Toe Reimaginado</p>
+                <button class="btn btn-primary" data-action="start">COMENZAR</button>
+                <button class="btn btn-settings" data-action="settings">⚙️</button>
+            </div>
+        </div>
+
+        <!-- Vista: Selección de Skin -->
+        <div id="view-skin" class="view">
+            <div class="container">
+                <h2 class="section-title">Elige tu Estilo</h2>
+                <div class="cards-grid">
+                    <div class="card" data-skin="classic">
+                        <div class="card-icon">
+                            <span class="symbol-x classic">X</span>
+                            <span class="symbol-o classic">O</span>
+                        </div>
+                        <h3>Clásico</h3>
+                    </div>
+                    <div class="card" data-skin="neon">
+                        <div class="card-icon">
+                            <span class="symbol-x neon">X</span>
+                            <span class="symbol-o neon">O</span>
+                        </div>
+                        <h3>Neón</h3>
+                    </div>
+                    <div class="card" data-skin="retro">
+                        <div class="card-icon">
+                            <span class="symbol-x retro">X</span>
+                            <span class="symbol-o retro">O</span>
+                        </div>
+                        <h3>Retro</h3>
+                    </div>
+                </div>
+                <button class="btn btn-back" data-action="back">← Volver</button>
+            </div>
+        </div>
+
+        <!-- Vista: Selección de Modo -->
+        <div id="view-mode" class="view">
+            <div class="container">
+                <h2 class="section-title">Modo de Juego</h2>
+                <div class="cards-grid">
+                    <div class="card" data-mode="human">
+                        <div class="card-icon">👥</div>
+                        <h3>VS Humano</h3>
+                        <p>Juega contra un amigo</p>
+                    </div>
+                    <div class="card" data-mode="ai">
+                        <div class="card-icon">🤖</div>
+                        <h3>VS IA</h3>
+                        <p>Enfrenta a la computadora</p>
+                    </div>
+                </div>
+                <button class="btn btn-back" data-action="back">← Volver</button>
+            </div>
+        </div>
+
+        <!-- Vista: Selección de Tamaño -->
+        <div id="view-size" class="view">
+            <div class="container">
+                <h2 class="section-title">Tamaño del Tablero</h2>
+                <div class="cards-grid">
+                    <div class="card" data-size="3">
+                        <div class="card-icon size-preview">
+                            <div class="grid-preview" style="--size: 3"></div>
+                        </div>
+                        <h3>3×3</h3>
+                        <p>Clásico y rápido</p>
+                    </div>
+                    <div class="card" data-size="4">
+                        <div class="card-icon size-preview">
+                            <div class="grid-preview" style="--size: 4"></div>
+                        </div>
+                        <h3>4×4</h3>
+                        <p>Más desafiante</p>
+                    </div>
+                    <div class="card" data-size="5">
+                        <div class="card-icon size-preview">
+                            <div class="grid-preview" style="--size: 5"></div>
+                        </div>
+                        <h3>5×5</h3>
+                        <p>Modo experto</p>
+                    </div>
+                </div>
+                <button class="btn btn-back" data-action="back">← Volver</button>
+            </div>
+        </div>
+
+        <!-- Vista: Juego -->
+        <div id="view-game" class="view">
+            <div class="game-container">
+                <!-- Header con info de jugadores -->
+                <div class="game-header">
+                    <div class="player-card" id="player-x-card">
+                        <div class="player-symbol"></div>
+                        <div class="player-info">
+                            <span class="player-name">Jugador X</span>
+                            <span class="player-score">★ 0</span>
+                        </div>
+                    </div>
+                    <div class="score-separator">
+                        <span class="draws-count">Empates: 0</span>
+                    </div>
+                    <div class="player-card" id="player-o-card">
+                        <div class="player-symbol"></div>
+                        <div class="player-info">
+                            <span class="player-name">Jugador O</span>
+                            <span class="player-score">★ 0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tablero -->
+                <div id="board" class="board"></div>
+
+                <!-- Botones de acción -->
+                <div class="game-actions">
+                    <button class="btn btn-secondary" data-action="menu">← Menú</button>
+                    <button class="btn btn-settings" data-action="settings">⚙️</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Vista: Game Over -->
+        <div id="view-gameover" class="view">
+            <div class="container">
+                <div class="gameover-content">
+                    <h2 id="winner-message" class="winner-text"></h2>
+                    <div class="scores-display">
+                        <div class="score-item">
+                            <span class="score-label">X</span>
+                            <span class="score-value" id="final-score-x">0</span>
+                        </div>
+                        <div class="score-item">
+                            <span class="score-label">Empates</span>
+                            <span class="score-value" id="final-score-draws">0</span>
+                        </div>
+                        <div class="score-item">
+                            <span class="score-label">O</span>
+                            <span class="score-value" id="final-score-o">0</span>
+                        </div>
+                    </div>
+                    <div class="gameover-actions">
+                        <button class="btn btn-primary" data-action="play-again">Jugar de Nuevo</button>
+                        <button class="btn btn-secondary" data-action="menu">Menú Principal</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Panel de Configuración (Modal) -->
+        <div id="settings-panel" class="modal">
+            <div class="modal-overlay" data-action="close-settings"></div>
+            <div class="modal-content">
+                <h3>Configuración</h3>
+
+                <div class="settings-section">
+                    <label>Nombres de Jugadores</label>
+                    <p class="settings-note">(Solo para modo VS Humano)</p>
+                    <div class="input-group">
+                        <label for="player-x-name">Jugador X:</label>
+                        <input type="text" id="player-x-name" maxlength="15" placeholder="Nombre X">
+                    </div>
+                    <div class="input-group">
+                        <label for="player-o-name">Jugador O:</label>
+                        <input type="text" id="player-o-name" maxlength="15" placeholder="Nombre O">
+                    </div>
+                </div>
+
+                <div class="settings-section">
+                    <button class="btn btn-toggle" id="dark-mode-toggle">
+                        <span class="toggle-icon">🌙</span>
+                        <span class="toggle-text">Modo Oscuro</span>
+                    </button>
+                </div>
+
+                <button class="btn btn-danger" data-action="close-settings">✕ Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/state.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/ai.js"></script>
+    <script src="js/game.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/app.js"></script>
+</body>
+
+</html>

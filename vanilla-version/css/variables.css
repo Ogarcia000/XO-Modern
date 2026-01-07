@@ -1,0 +1,105 @@
+/* CSS Variables */
+:root {
+    /* Skins - Classic */
+    --classic-x: #ff6b6b;
+    --classic-o: #4ecdc4;
+    --classic-x-glow: rgba(255, 107, 107, 0.4);
+    --classic-o-glow: rgba(78, 205, 196, 0.4);
+
+    /* Skins - Neon */
+    --neon-x: #ff006e;
+    --neon-o: #06ffa5;
+    --neon-x-glow: rgba(255, 0, 110, 0.6);
+    --neon-o-glow: rgba(6, 255, 165, 0.6);
+
+    /* Skins - Retro */
+    --retro-x: #ffa500;
+    --retro-o: #00bfff;
+    --retro-x-glow: rgba(255, 165, 0, 0.4);
+    --retro-o-glow: rgba(0, 191, 255, 0.4);
+
+    /* UI Colors - Light Mode */
+    --bg-primary: #1a1a2e;
+    --bg-secondary: #16213e;
+    --bg-tertiary: #0f0f1e;
+    --text-primary: #ffffff;
+    --text-secondary: #c8c8dc;
+    --text-muted: #888888;
+
+    /* Accent Colors */
+    --accent-primary: #667eea;
+    --accent-secondary: #764ba2;
+    --accent-success: #00c896;
+    --accent-danger: #d63031;
+    --accent-warning: #fdcb6e;
+
+    /* Shadows */
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.15);
+    --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.2);
+    --shadow-xl: 0 12px 24px rgba(0, 0, 0, 0.25);
+
+    /* Spacing */
+    --space-xs: 4px;
+    --space-sm: 8px;
+    --space-md: 16px;
+    --space-lg: 24px;
+    --space-xl: 32px;
+    --space-2xl: 48px;
+
+    /* Border Radius */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-full: 9999px;
+
+    /* Typography */
+    --font-size-sm: 0.875rem;
+    --font-size-base: 1rem;
+    --font-size-lg: 1.125rem;
+    --font-size-xl: 1.25rem;
+    --font-size-2xl: 1.5rem;
+    --font-size-3xl: 2rem;
+    --font-size-4xl: 2.5rem;
+
+    /* Transitions */
+    --transition-fast: 150ms ease;
+    --transition-base: 250ms ease;
+    --transition-slow: 350ms ease;
+
+    /* Z-index */
+    --z-base: 1;
+    --z-dropdown: 100;
+    --z-overlay: 500;
+    --z-modal: 1000;
+    --z-tooltip: 2000;
+}
+
+/* Dark Mode Variables */
+body.dark-mode {
+    --bg-primary: #0a0a0a;
+    --bg-secondary: #1a1a2e;
+    --bg-tertiary: #16213e;
+}
+
+/* Skin-specific variables (set dynamically via JS) */
+body[data-skin="classic"] {
+    --color-x: var(--classic-x);
+    --color-o: var(--classic-o);
+    --color-x-glow: var(--classic-x-glow);
+    --color-o-glow: var(--classic-o-glow);
+}
+
+body[data-skin="neon"] {
+    --color-x: var(--neon-x);
+    --color-o: var(--neon-o);
+    --color-x-glow: var(--neon-x-glow);
+    --color-o-glow: var(--neon-o-glow);
+}
+
+body[data-skin="retro"] {
+    --color-x: var(--retro-x);
+    --color-o: var(--retro-o);
+    --color-x-glow: var(--retro-x-glow);
+    --color-o-glow: var(--retro-o-glow);
+}
